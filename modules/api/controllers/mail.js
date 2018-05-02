@@ -2,19 +2,24 @@ import { send } from 'services/mail'
 import config from 'config/config'
 
 export function sendMail(req, res, next) {
+  let { subject, content, from, to, refferUrl } = req.body
+
+  if (!subject || !content || !from || !to) {
+    return res.status(400).json({error: 'Missing params'})
+  }
 
   config.emails.forEach((email) => {
     let index = email.indexOf('@')
     let name = email.substring(0, index)
 
-    handleSendMail(name, email)
+    handleSendMail(name, email, subject, content, refferUrl)
   })
 
-  res.send('success')
+  res.redirect('/')
 }
 
-function handleSendMail(name, email) {
-  let subject = "Invest smarter with ICObench"
+function handleSendMail(name, email, subject, content, refferUrl) {
+  // let subject = "Invest smarter with ICObench"
   let toAddresses = [email]
   let ccAddresses = []
   let textFormatBody = "textFormatBody"
@@ -27,7 +32,7 @@ function handleSendMail(name, email) {
                     <thead>
                     <tr>
                         <th>
-                            <a style="font-size: 20px;display:inline-block;padding-top:50px">
+                            <a style="font-size: 20px;display:inline-block;padding-top:35px">
                                 ICObench
                             </a>
                         </th>
@@ -43,24 +48,24 @@ function handleSendMail(name, email) {
                     </tr>
                     <tr>
                         <td>
-                            <a href="http://google.com" style="display:inline-block" target="_blank">
-                                <div style="outline:none;margin-bottom: 30px;font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 50px;min-width: 200px;line-height: 50px;text-align:center;padding-left:30px;padding-right:30px;">
+                            <a href="${refferUrl}" style="display:inline-block" target="_blank">
+                                <div style="outline:none;margin-bottom: 10px;font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 30px;min-width: 200px;line-height: 30px;text-align:center;padding-left:30px;padding-right:30px;">
                                     Register ICO
                                 </div>
                             </a>
                         </td>
                     </tr>
                     </tbody>
-                    <tfoot style="background:#f9f9f9">
+                    <tfoot>
                     <tr>
-                        <td>
-                        aaaaa
+                        <td style="text-align:left; padding-left: 20px;">
+                        ${content}
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <a href="http://google.com" style="display:inline-block" target="_blank">
-                                <div style="outline:none;margin-bottom: 30px; margin-top: 30px; font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 50px;min-width: 200px;line-height: 50px;text-align:center;padding-left:30px;padding-right:30px;">
+                            <a href="${refferUrl}" style="display:inline-block" target="_blank">
+                                <div style="outline:none;margin-bottom: 10px; margin-top: 10px; font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 30px;min-width: 200px;line-height: 30px;text-align:center;padding-left:30px;padding-right:30px;">
                                     Register ICO
                                 </div>
                             </a>

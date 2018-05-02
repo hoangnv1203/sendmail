@@ -1,4 +1,7 @@
 import express from 'express'
+import {
+  sendMail
+} from '../api/controllers/mail'
 
 const app = express()
 
@@ -10,10 +13,6 @@ app.get('/', function(req, res) {
   })
 })
 
-app.post('/sendmail', function(req, res) {
-  console.log('req', req.body)
-
-  res.redirect('/')
-})
+app.post('/sendmail', sendMail)
 
 export default app
