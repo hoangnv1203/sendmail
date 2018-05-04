@@ -2,23 +2,33 @@ import { send } from 'services/mail'
 import config from 'config/config'
 
 export function sendMail(req, res, next) {
-  let { subject, content, from, to, refferUrl } = req.body
+    let { subject, content, from, to, refferUrl } = req.body
 
-  if (!subject || !content || !from || !to) {
-    return res.status(400).json({error: 'Missing params'})
-  }
+    if (!subject || !content) {
+        return res.status(400).json({error: 'Missing params'})
+    }
 
-  config.emails.forEach((email) => {
-    let index = email.indexOf('@')
-    let name = email.substring(0, index)
+    let emails = config.emails;
 
-    handleSendMail(name, email, subject, content, refferUrl)
-  })
+    theLoop(emails[0], subject, content, refferUrl, emails, 0);
 
-  res.redirect('/')
+    res.redirect('/')
 }
 
-function handleSendMail(name, email, subject, content, refferUrl) {
+function theLoop(email, subject, content, refferUrl, emails, i) {
+    setTimeout(function() {
+        if (email) {
+            handleSendMail(email, subject, content, refferUrl)
+        }
+
+        if (i < emails.length) {
+            i++;
+            theLoop(emails[i], subject, content, refferUrl, emails, i);
+        }
+    }, 100);
+}
+
+function handleSendMail(email, subject, content, refferUrl) {
   // let subject = "Invest smarter with ICObench"
   let toAddresses = [email]
   let ccAddresses = []
@@ -33,7 +43,7 @@ function handleSendMail(name, email, subject, content, refferUrl) {
                     <tr>
                         <th>
                             <a style="font-size: 20px;display:inline-block;padding-top:35px">
-                                ICObench
+                                ICOTOP
                             </a>
                         </th>
                     </tr>
@@ -42,7 +52,7 @@ function handleSendMail(name, email, subject, content, refferUrl) {
                     <tr>
                         <td>
                             <p style="margin-bottom:0;padding-bottom:20px;color:#585862;line-height:27px;font-size:17px;padding-right:40px;padding-left:40px">
-                                Invest smarter with ICObench, ICOs ratings from top investors and experts
+                                Invest smarter with ICOTOP, from top investors and experts
                             </p>
                         </td>
                     </tr>
@@ -50,7 +60,7 @@ function handleSendMail(name, email, subject, content, refferUrl) {
                         <td>
                             <a href="${refferUrl}" style="display:inline-block" target="_blank">
                                 <div style="outline:none;margin-bottom: 10px;font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 30px;min-width: 200px;line-height: 30px;text-align:center;padding-left:30px;padding-right:30px;">
-                                    Register ICO
+                                    View ICO Website
                                 </div>
                             </a>
                         </td>
@@ -66,14 +76,14 @@ function handleSendMail(name, email, subject, content, refferUrl) {
                         <td>
                             <a href="${refferUrl}" style="display:inline-block" target="_blank">
                                 <div style="outline:none;margin-bottom: 10px; margin-top: 10px; font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 30px;min-width: 200px;line-height: 30px;text-align:center;padding-left:30px;padding-right:30px;">
-                                    Register ICO
+                                    View ICO Website
                                 </div>
                             </a>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <p style="font-size:12px;color:#404041;padding-bottom:20px;margin:0">© 2018 ICObench</p>
+                            <p style="font-size:12px;color:#404041;padding-bottom:20px;margin:0">© 2018 ICOTOP</p>
                         </td>
                     </tr>
                     </tfoot>

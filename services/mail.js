@@ -29,5 +29,6 @@ export const send = async (subject, toAddresses, ccAddresses, htmlFormatBody, te
         ReplyToAddresses: [],
     }
 
-    return await ses.sendEmail(params).promise()
+    const data = await ses.sendEmail(params).promise();
+    console.log('data', data);
 }
