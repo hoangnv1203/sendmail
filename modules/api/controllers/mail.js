@@ -42,25 +42,20 @@ function handleSendMail(email, subject, content, refferUrl) {
                     <thead>
                     <tr>
                         <th>
-                            <a style="font-size: 20px;display:inline-block;padding-top:35px">
-                                ICOTOP
+                            <a style="font-size: 20px;display:inline-block;padding-top:35px; padding-bottom:10px">
+                                ICOTOP BOUNTY & AIRDROP
                             </a>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>
-                            <p style="margin-bottom:0;padding-bottom:20px;color:#585862;line-height:27px;font-size:17px;padding-right:40px;padding-left:40px">
-                                Invest smarter with ICOTOP, from top investors and experts
-                            </p>
-                        </td>
                     </tr>
                     <tr>
                         <td>
                             <a href="${refferUrl}" style="display:inline-block" target="_blank">
                                 <div style="outline:none;margin-bottom: 10px;font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 30px;min-width: 200px;line-height: 30px;text-align:center;padding-left:30px;padding-right:30px;">
-                                    View ICO Website
+                                    View Website
                                 </div>
                             </a>
                         </td>
@@ -76,7 +71,7 @@ function handleSendMail(email, subject, content, refferUrl) {
                         <td>
                             <a href="${refferUrl}" style="display:inline-block" target="_blank">
                                 <div style="outline:none;margin-bottom: 10px; margin-top: 10px; font-size: 16px;color:#fff;border:0;background: #2db9ad;display:inline-block;height: 30px;min-width: 200px;line-height: 30px;text-align:center;padding-left:30px;padding-right:30px;">
-                                    View ICO Website
+                                    View Website
                                 </div>
                             </a>
                         </td>
